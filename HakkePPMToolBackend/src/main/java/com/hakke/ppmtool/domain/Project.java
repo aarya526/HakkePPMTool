@@ -1,5 +1,5 @@
 package com.hakke.ppmtool.domain;
 
-public class Product {
+public class Project {
 
 }
