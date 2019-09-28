@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Project {
@@ -18,19 +22,28 @@ public class Project {
 	private Long id;
 
 	@Column(nullable = false)
-	private String projectname;
+	@NotBlank(message = "Project Name is Required!")
+	private String projectName;
 
+	@Column(nullable = false, updatable = false, unique = true)
+	@NotBlank(message = "project Identifier is Required!")
+	@Size(min = 4, max = 5, message = "Please use 4 to 5 character")
 	private String projectIdentifier;
 
 	@Column(length = 10000)
+	@NotBlank(message = "Project Description is Required!")
 	private String description;
 
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date start_date;
 
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date end_date;
 
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date created_At;
 
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date updated_At;
 
 	@PrePersist
@@ -55,12 +68,12 @@ public class Project {
 		this.id = id;
 	}
 
-	public String getProjectname() {
-		return projectname;
+	public String getProjectName() {
+		return projectName;
 	}
 
-	public void setProjectname(String projectname) {
-		this.projectname = projectname;
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 
 	public String getProjectIdentifier() {
