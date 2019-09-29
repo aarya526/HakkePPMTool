@@ -50,4 +50,11 @@ public class ProjectController {
 
 	}
 
+	@GetMapping("/all")
+	public ResponseEntity<List<Project>> listAllProjects() {
+
+		List<Project> projects = projectService.findAll();
+		return new ResponseEntity<List<Project>>(projects, HttpStatus.OK);
+	}
+
 }

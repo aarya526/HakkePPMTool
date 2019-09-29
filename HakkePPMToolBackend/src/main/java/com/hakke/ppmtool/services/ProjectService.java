@@ -1,5 +1,7 @@
 package com.hakke.ppmtool.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +38,11 @@ public class ProjectService {
 			throw new ProjectIdException("Project ID: '" + projectIdentifier + "' does not exists!");
 		}
 		return project;
+	}
+
+	public List<Project> findAll() {
+
+		return (List<Project>) projectRepository.findAll();
 	}
 
 }
