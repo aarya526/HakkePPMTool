@@ -5,14 +5,14 @@ import ProjectItem from './Project/ProjectItem'
     render() {
         return (
          <div>            
-            <h1>Welcome to the dashboard</h1>
+            <h1 className="alert alert-warning">Welcome to the dashboard</h1>
             <ProjectItem />
             <ProjectItem />
             <ProjectItem />
          </div>   
         )
+
     }
 }
-
-export default Dashboard;
+export default Dashboard
 
