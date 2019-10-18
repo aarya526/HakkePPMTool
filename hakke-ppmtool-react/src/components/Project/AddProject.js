@@ -79,7 +79,11 @@ class AddProject extends Component {
                       value={this.state.projectName}
                       onChange={this.onChange}
                     />
-                    <p>{errors.projectName}</p>
+                    {errors.projectName && (
+                      <div className="invalid-feedback">
+                        {errors.projectName}
+                      </div>
+                    )} 
                   </div>
                   <div className="form-group">
                     <input
