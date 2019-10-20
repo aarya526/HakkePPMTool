@@ -1,6 +1,14 @@
 import React, { Component } from "react";
+import { getProject } from "../../actions/projectActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import classnames from "classnames";
 
-class updateProject extends Component {
+class UpdateProject extends Component {
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    this.props.getProject(id, this.props.history);
+  }
   render() {
     return (
       <div className="register">
@@ -47,8 +55,10 @@ class updateProject extends Component {
                     name="end_date"
                   />
                 </div>
-
-                <input type="submit" className="btn btn-primary btn-block mt-4" />
+                <input
+                  type="submit"
+                  className="btn btn-primary btn-block mt-4"
+                />
               </form>
             </div>
           </div>
@@ -58,4 +68,14 @@ class updateProject extends Component {
   }
 }
 
-export default updateProject;
+UpdateProject.propTypes = {
+  getProject: PropTypes.func.isRequired,
+  project: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  project: state.project.project
+});
+export default connect(
+  mapStateToProps,
+  { getProject }
+)(UpdateProject);
