@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hakke.ppmtool.domain.Backlog;
 import com.hakke.ppmtool.domain.Project;
 import com.hakke.ppmtool.exceptions.ProjectIdException;
+import com.hakke.ppmtool.repository.BacklogRepository;
 import com.hakke.ppmtool.repository.ProjectRepository;
 
 @Service
@@ -15,11 +17,24 @@ public class ProjectService {
 	@Autowired
 	private ProjectRepository projectRepository;
 
+	@Autowired
+	private BacklogRepository backlogRepository;
+
 	public Project saveOrUpdate(Project project) {
 
 		try {
-
 			project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+			if (project.getId() == null) {
+				Backlog backlog = new Backlog();
+				project.setBacklog(backlog);
+				backlog.setProject(project);
+				backlog.setProjectIdentifier(project.getProjectIdentifier());
+			}
+
+			if (project.getId() != null) {
+
+				project.setBacklog(backlogRepository.findByProjectIdentifier(project.getProjectIdentifier()));
+			}
 			return projectRepository.save(project);
 
 		} catch (Exception e) {
